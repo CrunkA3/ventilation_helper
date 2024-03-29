@@ -1,0 +1,1 @@
+# Ventilation helper for Home Assistant
