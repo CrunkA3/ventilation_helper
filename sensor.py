@@ -28,7 +28,7 @@ class StateSensor(SensorEntity):
     should_poll = True
     
     _attr_device_class = SensorDeviceClass.ENUM
-    _attr_options = [ "OK", "OPEN", "CLOSE" ]
+    _attr_options = [ "ok", "open", "close" ]
     #_attr_icon = "mdi:window-open-variant"
 
     def __init__(self, area_info):
@@ -64,9 +64,9 @@ class StateSensor(SensorEntity):
     @property
     def icon(self) -> str | None:
         """Icon of the entity, based on state."""
-        if self.state == "OPEN":
+        if self.state == "open":
             return "mdi:window-open-variant"
-        elif self.state == "CLOSE":
+        elif self.state == "close":
             return "mdi:window-closed-variant"
 
         return "mdi:check"

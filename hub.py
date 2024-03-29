@@ -218,6 +218,34 @@ class AreaInformation:
                         if co2 > 1200:
                             new_state = "open"
 
+
+        #Fenster auf, prüfen ob geschlossen werden soll
+        if area_window_state == "on":
+            if len(self._humidity_sensors) + len(self._temperature_sensors) + len(self._co2_sensors) == 0:
+                new_state = "close"
+            
+            else:
+                if len(self._temperature_sensors) > 0:
+                    for temperature_sensor in self._temperature_sensors:
+                        termperature = float(state.get(temperature_sensor.entity_id))
+                        if termperature < 20:
+                            new_state = "close"
+                            state.setattr(id_reminder, datetime.utcnow())
+                if len(self._humidity_sensors) > 0:
+                    for humidity_sensor in self._humidity_sensors:
+                        humidity = float(state.get(humidity_sensor.entity_id))
+                        if humidity < 50:
+                            new_state = "close"
+                            state.setattr(id_reminder, datetime.utcnow())
+                if len(self._co2_sensors) > 0:
+                    for co2_sensor in self._co2_sensors:
+                        co2 = float(state.get(co2_sensor.entity_id))
+                        if co2 < 900:
+                            new_state = "close"
+                            state.setattr(id_reminder, datetime.utcnow())
+
+
+
         if new_state != "ok":
             self._last_reminder = utc_now
 
